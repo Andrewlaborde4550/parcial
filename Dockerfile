@@ -1,20 +1,20 @@
-# Utilice un entorno de ejecución oficial de Node.js como imagen principal
-DESDE el nodo:14
+# Use an official Node.js runtime as a parent image
+FROM node:14
 
-# Establezca el directorio de trabajo en el contenedor
-WORKDIR/usr/src/app
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-# Copie package.json y package-lock.json al directorio de trabajo
-COPIAR paquete*.json./
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
-# Instalar dependencias de la aplicación
-EJECUTAR la instalación de npm
+# Install app dependencies
+RUN npm install
 
-# Copie el resto del código de la aplicación al directorio de trabajo
-COPIAR . .
+# Copy the rest of the application code to the working directory
+COPY . .
 
-# Expone el puerto en el que se ejecuta la aplicación
-EXPONER 3000
+# Expose the port the app runs on
+EXPOSE 3000
 
-# Defina el comando para ejecutar la aplicación
-CMD ["npm", "comenzar"]
+# Define the command to run the application
+CMD ["npm", "start"]
