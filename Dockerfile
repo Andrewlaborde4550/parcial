@@ -1,13 +1,10 @@
 # Use an official Node.js runtime as a parent image
-FROM node:20
+FROM node:14
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-RUN apt-get update && apt-get install -y python3 make g++
-
 # Copy package.json and package-lock.json to the working directory
-
 COPY package*.json ./
 
 # Install app dependencies
@@ -21,5 +18,6 @@ EXPOSE 3000
 
 # Define the command to run the application
 CMD ["npm", "start"]
+
 
 
