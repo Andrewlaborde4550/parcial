@@ -35,8 +35,9 @@ jobs:
 
       - name: Fix SARIF security-severity if null
         run: |
-          jq '(.runs[].results[] | select(.properties."security-severity" == null) | .properties."security-severity") = 5.0' snyk.sarif > fixed.sarif
+          jq '(.runs[].results[] | select(.properties."security-severity" == null) | .properties."security-severity") = "5.0"' snyk.sarif > fixed.sarif
           mv fixed.sarif snyk.sarif
+
 
       - name: Upload SARIF to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
