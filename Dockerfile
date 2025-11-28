@@ -4,6 +4,8 @@ FROM node:20
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
+RUN apt-get update && apt-get install -y python3 make g++
+
 # Copy package.json and package-lock.json to the working directory
 
 COPY package*.json ./
@@ -19,4 +21,5 @@ EXPOSE 3000
 
 # Define the command to run the application
 CMD ["npm", "start"]
+
 
