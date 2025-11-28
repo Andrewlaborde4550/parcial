@@ -32,15 +32,17 @@ jobs:
         with:
           image: my/test-image
           args: --file=Dockerfile --sarif-file-output=snyk.sarif
-
+          
       - name: Fix SARIF security-severity (results + rules)
         run: |
           jq '
             # Fix results[]
-            (.runs[].results[] | select(.properties."security-severity" == null) | .properties."security-severity") = "5.0"
+            (.runs[].results[]?.properties."security-severity") |=
+              if . == null then "5.0" else . end
             |
             # Fix rules[]
-            (.runs[].tool.driver.rules[] | select(.properties."security-severity" == null) | .properties."security-severity") = "5.0"
+            (.runs[].tool.driver.rules[]?.properties."security-severity") |=
+              if . == null then "5.0" else . end
           ' snyk.sarif > fixed.sarif
           mv fixed.sarif snyk.sarif
 
